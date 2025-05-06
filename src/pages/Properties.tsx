@@ -18,26 +18,8 @@ const Properties = () => {
   const propertyId = searchParams.get('id');
 
   useEffect(() => {
-    checkAuthAndFetchProperties();
+    fetchProperties();
   }, []);
-
-  const checkAuthAndFetchProperties = async () => {
-    try {
-      const { data: { user }, error: authError } = await supabase.auth.getUser();
-      
-      if (authError) throw authError;
-      
-      if (!user) {
-        navigate('/login');
-        return;
-      }
-
-      await fetchProperties();
-    } catch (error) {
-      console.error('Erro ao verificar autenticação:', error);
-      navigate('/login');
-    }
-  };
 
   const fetchProperties = async () => {
     try {
